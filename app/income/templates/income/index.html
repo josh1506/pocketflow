@@ -5,9 +5,7 @@
 {% block content %}
 <div class="w-full py-2 px-4">
     <span class="text-lg">Income Chart</span>
-    <div class="h-80 flex justify-center items-center bg-gray-200 rounded-lg mt-2">
-        <span>Bar Chart</span>
-    </div>
+    <div id="income-chart" class="h-80 border shadow rounded-lg mt-2 p-2"></div>
 </div>
 
 <div class="px-4">
@@ -51,23 +49,87 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white">
+                    {% for income in incomes %}
                     <tr class="even:bg-gray-50">
                         <td class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-3 max-w-[150px] truncate">
-                            Full time Job
+                            {{ income.title }}
                         </td>
-                        <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500 hidden sm:block">Salary</td>
-                        <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500">P15,000</td>
+                        <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500 hidden sm:block">
+                            {{ income.category }}
+                        </td>
+                        <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500">
+                            {{ income.amount }}
+                        </td>
                         <td class="relative py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-3">
                             <a href="#" class="text-indigo-600 hover:text-indigo-900">View<span
-                                    class="sr-only">, Full time Job</span></a>
+                                    class="sr-only">, {{ income.id }}</span></a>
                         </td>
                     </tr>
-
-                    <!-- More income... -->
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var options = {
+            series: [
+                {
+                    name: 'Salary',
+                    data: [15000, 16000, 15500, 15800, 16000, 16200]
+                },
+                {
+                    name: 'Business',
+                    data: [10000, 12000, 9000, 11000, 10500, 11500]
+                },
+                {
+                    name: 'Investment',
+                    data: [4000, 4500, 5000, 4800, 4900, 5200]
+                },
+                {
+                    name: 'Freelance',
+                    data: [7000, 7500, 7300, 7200, 8000, 8500]
+                },
+                {
+                    name: 'Other',
+                    data: [2000, 1800, 2100, 1900, 2500, 2300]
+                }
+            ],
+            chart: {
+                type: 'area',
+                height: 350,
+                toolbar: {
+                    show: true
+                }
+            },
+            colors: ['#EB8317', '#34D399', '#60A5FA', '#FBBF24', '#F472B6'],
+            stroke: {
+                curve: 'smooth'
+            },
+            xaxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+            },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shadeIntensity: 1,
+                    opacityFrom: 0.7,
+                    opacityTo: 0.1,
+                    stops: [0, 90, 100]
+                }
+            },
+            tooltip: {
+                x: {
+                    format: 'MMM'
+                },
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#income-chart"), options);
+        chart.render();
+    });
+</script>
 {% endblock %}
