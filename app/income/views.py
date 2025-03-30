@@ -6,7 +6,7 @@ from .models import Income
 
 class IncomeListView(ListView):
     model = Income
-    template_name = "base.html"
+    template_name = "income/index.html"
     context_object_name = "incomes"
     paginate_by = 20
     ordering = ["-date"]

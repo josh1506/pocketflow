@@ -14,61 +14,66 @@
     <div class="max-w-[40rem] w-full bg-white relative">
         <header class="h-14 flex justify-between items-center px-4 fixed left-0 right-0 bg-white max-w-[40rem] mx-auto border-b">
             <div class="flex gap-2">
-                <img src="asd.png" alt="logo">
-                <span>PocketFlow</span>
+                <a href="#">
+                    <img src="{% static 'images/common/logo.png' %}" width="100" alt="logo">
+                </a>
             </div>
-            <div>
-                More
+
+            <div class="flex items-center">
+                <button class="text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" height="30" viewBox="0 0 24 24"
+                         stroke-width="2.5"
+                         stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+                    </svg>
+                </button>
             </div>
         </header>
 
         <main class="flex flex-col gap-2 py-16 min-h-screen">
-            <div class="w-full py-2 px-4">
-                <span class="text-lg">Overview</span>
-                <div class="h-80 flex justify-center items-center bg-gray-200 rounded-lg mt-2">
-                    <span>Pie Chart</span>
-                </div>
-            </div>
-
-            <div class="w-full py-2 px-4">
-                <div class="flex justify-between items-center">
-                    <span class="text-lg">Income</span>
-                    <div class="flex gap-2">
-                        <button class="bg-secondary rounded border p-2 font-semibold hover:bg-secondaryHover duration-300">
-                            Edit
-                        </button>
-                        <button class="bg-primary rounded border p-2 font-semibold hover:bg-primaryHover duration-300">
-                            Create
-                        </button>
-                    </div>
-                </div>
-                <div class="h-80 flex justify-center items-center bg-gray-200 rounded-lg mt-2">
-                    <span>Bar Chart</span>
-                </div>
-            </div>
-
-            <div class="w-full py-2 px-4">
-                <div class="flex justify-between items-center">
-                    <span class="text-lg">Expenses</span>
-                    <div class="flex gap-2">
-                        <button class="bg-secondary rounded border p-2 font-semibold hover:bg-secondaryHover duration-300">
-                            Edit
-                        </button>
-                        <button class="bg-primary rounded border p-2 font-semibold hover:bg-primaryHover duration-300">
-                            Create
-                        </button>
-                    </div>
-                </div>
-                <div class="h-80 flex justify-center items-center bg-gray-200 rounded-lg mt-2">
-                    <span>Bar Chart</span>
-                </div>
-            </div>
+            {% block content %}{% endblock %}
         </main>
 
         <nav class="fixed bottom-0 left-0 right-0 bg-white border-t h-14 flex max-w-[40rem] mx-auto w-full shadow">
-            <button class="h-full w-1/3 bg-white hover:bg-gray-200 duration-500 cursor-pointer">Overview</button>
-            <button class="h-full w-1/3 bg-white hover:bg-gray-200 duration-500 cursor-pointer">Income</button>
-            <button class="h-full w-1/3 bg-white hover:bg-gray-200 duration-500 cursor-pointer">Expenses</button>
+            <a
+                    href="#"
+                    class="h-full w-1/3 hover:bg-gray-200 duration-500 flex items-center justify-center
+                {% if request.resolver_match.app_name == 'overview' %}
+                    bg-gray-200 text-primary pointer-events-none
+                {% else %}
+                    bg-white
+                    cursor-pointer
+                {% endif %}"
+            >
+                Overview
+            </a>
+
+            <a
+                    href="{% url 'income:income_list' %}"
+                    class="h-full w-1/3 hover:bg-gray-200 duration-500 flex items-center justify-center
+                {% if request.resolver_match.app_name == 'income' %}
+                    bg-gray-200 text-primary pointer-events-none
+                {% else %}
+                    bg-white
+                    cursor-pointer
+                {% endif %}"
+            >
+                Income
+            </a>
+
+            <a
+                    href="{% url 'expenses:expenses_list' %}"
+                    class="h-full w-1/3 hover:bg-gray-200 duration-500 flex items-center justify-center
+                {% if request.resolver_match.app_name == 'expenses' %}
+                    bg-gray-200 text-primary
+                {% else %}
+                    bg-white
+                    cursor-pointer
+                {% endif %}"
+            >
+                Expenses
+            </a>
         </nav>
     </div>
 </div>
