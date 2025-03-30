@@ -5,9 +5,7 @@
 {% block content %}
 <div class="w-full py-2 px-4">
     <span class="text-lg">Expenses Chart</span>
-    <div class="h-80 flex justify-center items-center bg-gray-200 rounded-lg mt-2">
-        <span>Bar Chart</span>
-    </div>
+    <div id="expenses-chart" class="h-80 border shadow rounded-lg mt-2 p-2"></div>
 </div>
 
 <div class="px-4">
@@ -53,23 +51,91 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white">
+                    {% for expense in expenses %}
                     <tr class="even:bg-gray-50">
                         <td class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-3 max-w-[150px] truncate">
-                            Xbox Gamepass
+                            {{ expense.title }}
                         </td>
                         <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500 hidden sm:block">
-                            Subscription
+                            {{ expense.category }}
                         </td>
-                        <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500">P150</td>
+                        <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500">
+                            {{ expense.amount }}
+                        </td>
                         <td class="relative py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-3">
                             <a href="#" class="text-indigo-600 hover:text-indigo-900">View<span
-                                    class="sr-only">, Xbox Gamepass</span></a>
+                                    class="sr-only">, {{ expense.id }}</span></a>
                         </td>
                     </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var options = {
+            series: [
+                {
+                    name: 'Food & Dining',
+                    data: [5000, 5500, 4500, 5200, 6000, 5700]  // Fluctuates over months
+                },
+                {
+                    name: 'Transportation',
+                    data: [3000, 2500, 3200, 2800, 3000, 3100]  // Varies slightly each month
+                },
+                {
+                    name: 'Utilities',
+                    data: [4000, 4200, 3900, 4100, 4300, 4000]  // Slight changes
+                },
+                {
+                    name: 'Entertainment',
+                    data: [2000, 2500, 1800, 2300, 2700, 2200]  // Up and down pattern
+                },
+                {
+                    name: 'Others',
+                    data: [1500, 1800, 1400, 1600, 1900, 1700]  // Smaller but fluctuating
+                }
+            ],
+            chart: {
+                type: 'area',
+                height: 350,
+                toolbar: {
+                    show: true,
+                    tools: {
+                        download: true,
+                        selection: true,
+                        zoom: true,
+                        zoomin: true,
+                        zoomout: true,
+                        pan: true,
+                        reset: true
+                    }
+                }
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 2
+            },
+            xaxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+            },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shadeIntensity: 1,
+                    opacityFrom: 0.4,
+                    opacityTo: 0.1,
+                    stops: [0, 90, 100]
+                }
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#expenses-chart"), options);
+        chart.render();
+    });
+</script>
 {% endblock %}
