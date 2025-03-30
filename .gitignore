@@ -1,0 +1,67 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django migrations
+*/migrations/*
+
+# Ignore SQLite database files
+*.sqlite3
+
+# Ignore Django static files
+/staticfiles/
+*.log
+
+# Tailwind CSS & Node
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+
+# Pytest cache
+.pytest_cache/
+
+# env files
+.env
+
+# VS Code files
+.vscode/
+
+# MacOS
+.DS_Store
+
+# IDE files
+.idea/
+
+# Django cache
+*.cache
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
+# Compiled files
+*.mo
+*.pot
+
+# Pyre
+.pyre/
+
+# MyPy
+.mypy_cache/
+
+# Pyright
+.pyright/
+
+# Pipenv
+Pipfile.lock
+
+# Django admin logs
+*.log
+
+# Local development files
+.env.local
+.env.*.local
