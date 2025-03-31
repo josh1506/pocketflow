@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .ajax_views import load_expenses_chart_data
+from .ajax_views import load_expenses_chart_data, load_total_expenses_chart_data
 from .views import ExpensesListView, ExpensesCreateView, ExpensesDetailView, ExpensesUpdateView, ExpensesDeleteView
 
 app_name = "expenses"
@@ -16,6 +16,7 @@ ui_patterns = [
 
 api_patterns = [
     path('chart-data/', load_expenses_chart_data, name='expenses_chart_data'),
+    path("chart-data/total/", load_total_expenses_chart_data, name="total_income_chart_data")
 ]
 
 urlpatterns = ui_patterns + api_patterns

@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import IncomeListView, IncomeCreateView, IncomeDetailView, IncomeUpdateView, IncomeDeleteView
-from .ajax_views import load_income_chart_data
+from .ajax_views import load_income_chart_data, load_total_income_chart_data
 
 app_name = "income"
 
@@ -14,7 +14,8 @@ ui_patterns = [
 ]
 
 api_patterns = [
-    path("chart-data/", load_income_chart_data, name="income_chart_data")
+    path("chart-data/", load_income_chart_data, name="income_chart_data"),
+    path("chart-data/total/", load_total_income_chart_data, name="total_income_chart_data")
 ]
 
 urlpatterns = ui_patterns + api_patterns
