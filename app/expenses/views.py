@@ -29,3 +29,12 @@ class ExpensesDetailView(DetailView):
     template_name = "expenses/details.html"
     context_object_name = "expenses"
     pk_url_kwarg = "expense_id"
+
+
+class ExpensesUpdateView(UpdateView):
+    model = Expenses
+    form_class = ExpensesForm
+    template_name = "expenses/update.html"
+    context_object_name = "expenses"
+    pk_url_kwarg = "expense_id"
+    success_url = reverse_lazy("expenses:list")
