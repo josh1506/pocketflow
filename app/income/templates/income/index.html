@@ -61,7 +61,8 @@
                             {{ income.amount }}
                         </td>
                         <td class="relative py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-3">
-                            <a href="{% url 'income:details' income_id=income.id %}" class="text-indigo-600 hover:text-indigo-900">View<span
+                            <a href="{% url 'income:details' income_id=income.id %}"
+                               class="text-indigo-600 hover:text-indigo-900">View<span
                                     class="sr-only">, {{ income.id }}</span></a>
                         </td>
                     </tr>
@@ -75,61 +76,48 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var options = {
-            series: [
-                {
-                    name: 'Salary',
-                    data: [15000, 16000, 15500, 15800, 16000, 16200]
-                },
-                {
-                    name: 'Business',
-                    data: [10000, 12000, 9000, 11000, 10500, 11500]
-                },
-                {
-                    name: 'Investment',
-                    data: [4000, 4500, 5000, 4800, 4900, 5200]
-                },
-                {
-                    name: 'Freelance',
-                    data: [7000, 7500, 7300, 7200, 8000, 8500]
-                },
-                {
-                    name: 'Other',
-                    data: [2000, 1800, 2100, 1900, 2500, 2300]
-                }
-            ],
-            chart: {
-                type: 'area',
-                height: 350,
-                toolbar: {
-                    show: true
-                }
-            },
-            colors: ['#EB8317', '#34D399', '#60A5FA', '#FBBF24', '#F472B6'],
-            stroke: {
-                curve: 'smooth'
-            },
-            xaxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
-            },
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    shadeIntensity: 1,
-                    opacityFrom: 0.7,
-                    opacityTo: 0.1,
-                    stops: [0, 90, 100]
-                }
-            },
-            tooltip: {
-                x: {
-                    format: 'MMM'
-                },
-            }
-        };
+        fetch("{% url 'income:income_chart_data' %}")
+            .then(response => response.json())
+            .then(data => {
+                var options = {
+                    series: data.datasets,
+                    chart: {
+                        type: 'area',
+                        height: 350,
+                        toolbar: {
+                            show: true,
+                            tools: {
+                                download: true,
+                                selection: true,
+                                zoom: true,
+                                zoomin: true,
+                                zoomout: true,
+                                pan: true,
+                                reset: true
+                            }
+                        }
+                    },
+                    stroke: {
+                        curve: 'smooth',
+                        width: 2
+                    },
+                    xaxis: {
+                        categories: data.labels
+                    },
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.4,
+                            opacityTo: 0.1,
+                            stops: [0, 90, 100]
+                        }
+                    }
+                };
 
-        var chart = new ApexCharts(document.querySelector("#income-chart"), options);
-        chart.render();
+                var chart = new ApexCharts(document.querySelector("#income-chart"), options);
+                chart.render();
+            });
     });
 </script>
 {% endblock %}
