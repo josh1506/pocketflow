@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.db.models import Sum
 from django.http import JsonResponse
@@ -34,5 +34,30 @@ def load_expenses_chart_data(request):
     data = {
         'labels': months,
         'datasets': datasets,
+    }
+    return JsonResponse(data)
+
+
+def load_total_expenses_chart_data(request):
+    expenses = Expenses.objects.filter(user=request.user)
+
+    thirty_days = datetime.now() - timedelta(days=30)
+    expenses_dates = expenses.filter(date__gte=thirty_days).values_list('date', flat=True).distinct().order_by('date')
+
+    labels = [date.strftime('%Y-%m-%d') for date in expenses_dates]
+
+    total_expenses_per_day = [
+        expenses.filter(date=date).aggregate(total=Sum('amount'))['total'] or 0
+        for date in expenses_dates
+    ]
+
+    data = {
+        'labels': labels,
+        'datasets': [
+            {
+                'name': 'Expenses',
+                'data': total_expenses_per_day
+            }
+        ]
     }
     return JsonResponse(data)

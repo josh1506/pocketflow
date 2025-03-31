@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.http import JsonResponse
 from django.db.models import Sum
@@ -34,5 +34,30 @@ def load_income_chart_data(request):
     data = {
         'labels': months,
         'datasets': datasets
+    }
+    return JsonResponse(data)
+
+
+def load_total_income_chart_data(request):
+    incomes = Income.objects.filter(user=request.user)
+
+    thirty_days = datetime.now() - timedelta(days=30)
+    income_dates = incomes.filter(date__gte=thirty_days).values_list('date', flat=True).distinct().order_by('date')
+
+    labels = [date.strftime('%Y-%m-%d') for date in income_dates]
+
+    total_income_per_day = [
+        incomes.filter(date=date).aggregate(total=Sum('amount'))['total'] or 0
+        for date in income_dates
+    ]
+
+    data = {
+        'labels': labels,
+        'datasets': [
+            {
+                'name': 'Income',
+                'data': total_income_per_day
+            }
+        ]
     }
     return JsonResponse(data)

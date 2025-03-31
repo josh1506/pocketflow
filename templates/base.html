@@ -37,9 +37,8 @@
         </main>
 
         <nav class="fixed bottom-0 left-0 right-0 bg-white border-t h-14 flex max-w-[40rem] mx-auto w-full shadow">
-            <a
-                    href="#"
-                    class="h-full w-1/3 hover:bg-gray-200 duration-500 flex items-center justify-center
+            <a href="{% url 'overview:dashboard' %}"
+               class="h-full w-1/3 hover:bg-gray-200 duration-500 flex items-center justify-center
                 {% if request.resolver_match.app_name == 'overview' %}
                     bg-gray-200 text-primary pointer-events-none
                 {% else %}
@@ -50,9 +49,8 @@
                 Overview
             </a>
 
-            <a
-                    href="{% url 'income:list' %}"
-                    class="h-full w-1/3 hover:bg-gray-200 duration-500 flex items-center justify-center
+            <a href="{% url 'income:list' %}"
+               class="h-full w-1/3 hover:bg-gray-200 duration-500 flex items-center justify-center
                 {% if request.resolver_match.app_name == 'income' %}
                     bg-gray-200 text-primary pointer-events-none
                 {% else %}
@@ -63,9 +61,8 @@
                 Income
             </a>
 
-            <a
-                    href="{% url 'expenses:list' %}"
-                    class="h-full w-1/3 hover:bg-gray-200 duration-500 flex items-center justify-center
+            <a href="{% url 'expenses:list' %}"
+               class="h-full w-1/3 hover:bg-gray-200 duration-500 flex items-center justify-center
                 {% if request.resolver_match.app_name == 'expenses' %}
                     bg-gray-200 text-primary pointer-events-none
                 {% else %}
