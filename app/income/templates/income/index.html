@@ -61,7 +61,7 @@
                             {{ income.amount }}
                         </td>
                         <td class="relative py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-3">
-                            <a href="#" class="text-indigo-600 hover:text-indigo-900">View<span
+                            <a href="{% url 'income:details' income_id=income.id %}" class="text-indigo-600 hover:text-indigo-900">View<span
                                     class="sr-only">, {{ income.id }}</span></a>
                         </td>
                     </tr>

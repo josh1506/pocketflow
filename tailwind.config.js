@@ -13,6 +13,8 @@ module.exports = {
             primaryHover: "#F29B44",
             secondary: "#F4F6FF",
             secondaryHover: "#FFFFFF",
+            danger: colors.red["600"],
+            dangerHover: colors.red["500"],
         },
         extend: {},
     },
