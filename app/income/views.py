@@ -22,3 +22,10 @@ class IncomeCreateView(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+class IncomeDetailView(DetailView):
+    model = Income
+    template_name = "income/details.html"
+    context_object_name = "income"
+    pk_url_kwarg = "income_id"
