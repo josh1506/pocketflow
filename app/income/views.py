@@ -34,6 +34,17 @@ class IncomeDetailView(DetailView):
 class IncomeUpdateView(UpdateView):
     model = Income
     template_name = "income/update.html"
+    context_object_name = "income"
     form_class = IncomeForm
+    pk_url_kwarg = "income_id"
+
+    def get_success_url(self):
+        return reverse_lazy("income:details", kwargs={"income_id": self.object.id})
+
+
+class IncomeDeleteView(DeleteView):
+    model = Income
+    template_name = "income/delete.html"
+    context_object_name = "income"
     pk_url_kwarg = "income_id"
     success_url = reverse_lazy("income:list")
