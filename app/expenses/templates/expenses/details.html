@@ -48,8 +48,9 @@
         </div>
     </div>
     <div class="flex flex-col gap-2 mt-6">
-        <button class="w-full bg-primary hover:bg-primaryHover px-4 py-2 text-white rounded duration-300">Update
-        </button>
+        <a href="{% url 'expenses:update' expense_id=expenses.id %}" class="w-full bg-primary hover:bg-primaryHover px-4 py-2 text-white rounded duration-300 text-center">
+            Update
+        </a>
         <a href="{% url 'expenses:list' %}"
            class="w-full bg-secondary hover:bg-secondaryHover px-4 py-2 rounded duration-300 border text-center">Back</a>
     </div>
