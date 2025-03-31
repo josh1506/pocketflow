@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Income Delete{% endblock %}
+
+{% block content %}
+<form method="post">
+    <div class="py-4 px-10">
+        <div class="sm:flex-auto mb-8">
+            <h1 class="text-xl font-semibold text-gray-900">Delete Income</h1>
+            <p class="mt-2 text-sm text-gray-700">
+                Remove existing income entries permanently from your records. This feature allows you to keep your
+                financial
+                data clean and organized by deleting outdated or incorrect entries.
+            </p>
+        </div>
+        <div class="flex mt-10 gap-4 justify-center">
+            <p>Are you sure you want to delete <span class="font-bold">{{ income.title }}</span>?</p>
+        </div>
+        <div class="flex flex-col gap-2 mt-6">
+            <button type="submit"
+                    class="w-full bg-danger hover:bg-dangerHover px-4 py-2 text-white rounded duration-300 text-center">
+                Delete
+            </button>
+            <a href="{% url 'income:details' income_id=income.id %}"
+               class="w-full bg-secondary hover:bg-secondaryHover px-4 py-2 rounded duration-300 border text-center"
+            >
+                Back
+            </a>
+        </div>
+    </div>
+    {% csrf_token %}
+</form>
+{% endblock %}
