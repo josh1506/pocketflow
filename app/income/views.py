@@ -29,3 +29,11 @@ class IncomeDetailView(DetailView):
     template_name = "income/details.html"
     context_object_name = "income"
     pk_url_kwarg = "income_id"
+
+
+class IncomeUpdateView(UpdateView):
+    model = Income
+    template_name = "income/update.html"
+    form_class = IncomeForm
+    pk_url_kwarg = "income_id"
+    success_url = reverse_lazy("income:list")
