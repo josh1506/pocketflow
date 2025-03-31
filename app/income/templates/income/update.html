@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Create Update{% endblock %}
+
+{% block content %}
+<div class="px-2 py-4">
+    <div class="sm:flex-auto mb-8 px-8">
+        <h1 class="text-xl font-semibold text-gray-900">Create Update</h1>
+        <p class="mt-2 text-sm text-gray-700">
+            Edit and update existing income entries by modifying details such as title, amount, category, description,
+            and date. This feature allows you to keep your financial records accurate and up-to-date.
+        </p>
+    </div>
+    <form action="" method="post">
+        <div class="flex flex-col gap-4">
+            {{form}}
+        </div>
+        {% csrf_token %}
+        <div class="flex mt-10 gap-2">
+            <a href="{% url 'income:details' income_id=income.id %}"
+               class="bg-secondary px-4 py-2 rounded w-1/2 border hover:bg-secondaryHover duration-300 text-center">
+                Cancel
+            </a>
+            <button
+                    class="bg-primary px-4 py-2 rounded w-1/2 border hover:bg-primaryHover duration-300 text-white"
+                    type="submit"
+            >
+                Save
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
