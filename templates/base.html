@@ -67,7 +67,7 @@
                     href="{% url 'expenses:list' %}"
                     class="h-full w-1/3 hover:bg-gray-200 duration-500 flex items-center justify-center
                 {% if request.resolver_match.app_name == 'expenses' %}
-                    bg-gray-200 text-primary
+                    bg-gray-200 text-primary pointer-events-none
                 {% else %}
                     bg-white
                     cursor-pointer
