@@ -63,7 +63,7 @@
                             {{ expense.amount }}
                         </td>
                         <td class="relative py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-3">
-                            <a href="#" class="text-indigo-600 hover:text-indigo-900">View<span
+                            <a href="{% url 'expenses:details' expense_id=expense.id %}" class="text-indigo-600 hover:text-indigo-900">View<span
                                     class="sr-only">, {{ expense.id }}</span></a>
                         </td>
                     </tr>
