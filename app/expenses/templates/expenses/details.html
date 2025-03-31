@@ -14,7 +14,7 @@
     </div>
     <div class="flex flex-col mt-10 gap-4 relative">
         <div class="absolute top-0 right-[-10px]">
-            <a href="#" class="text-danger hover:text-dangerHover duration-300">
+            <a href="{% url 'expenses:delete' expense_id=expenses.id %}" class="text-danger hover:text-dangerHover duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" width="35"
                      stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round"

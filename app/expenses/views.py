@@ -37,4 +37,13 @@ class ExpensesUpdateView(UpdateView):
     template_name = "expenses/update.html"
     context_object_name = "expenses"
     pk_url_kwarg = "expense_id"
+    def get_success_url(self):
+        return reverse_lazy("expenses:details", kwargs={"expense_id": self.object.id})
+
+
+class ExpensesDeleteView(DeleteView):
+    model = Expenses
+    template_name = "expenses/delete.html"
+    context_object_name = "expenses"
+    pk_url_kwarg = "expense_id"
     success_url = reverse_lazy("expenses:list")
