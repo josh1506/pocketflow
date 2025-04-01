@@ -10,6 +10,7 @@ class ExpensesForm(forms.ModelForm):
             "title",
             "amount",
             "category",
+            "date",
             "description",
         )
         widgets = {
@@ -22,6 +23,10 @@ class ExpensesForm(forms.ModelForm):
                 "placeholder": "Enter amount",
             }),
             "category": forms.Select(attrs={
+                "class": "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm",
+            }),
+            "date": forms.DateInput(attrs={
+                "type": "date",
                 "class": "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm",
             }),
             "description": forms.Textarea(attrs={
