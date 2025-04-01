@@ -17,7 +17,7 @@ class Income(models.Model):
     title = models.CharField(max_length=100)
     amount = models.FloatField(default=0)
     category = models.CharField(max_length=100, choices=CATEGORY_CHOICES)
-    date = models.DateField(auto_now=True)
+    date = models.DateField()
     description = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
