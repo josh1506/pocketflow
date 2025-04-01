@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
@@ -5,7 +6,7 @@ from .forms import ExpensesForm
 from .models import Expenses
 
 
-class ExpensesListView(ListView):
+class ExpensesListView(LoginRequiredMixin, ListView):
     model = Expenses
     template_name = "expenses/index.html"
     context_object_name = "expenses"
@@ -13,7 +14,7 @@ class ExpensesListView(ListView):
     ordering = ["-date"]
 
 
-class ExpensesCreateView(CreateView):
+class ExpensesCreateView(LoginRequiredMixin, CreateView):
     model = Expenses
     template_name = "expenses/create.html"
     form_class = ExpensesForm
@@ -24,14 +25,14 @@ class ExpensesCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ExpensesDetailView(DetailView):
+class ExpensesDetailView(LoginRequiredMixin, DetailView):
     model = Expenses
     template_name = "expenses/details.html"
     context_object_name = "expenses"
     pk_url_kwarg = "expense_id"
 
 
-class ExpensesUpdateView(UpdateView):
+class ExpensesUpdateView(LoginRequiredMixin, UpdateView):
     model = Expenses
     form_class = ExpensesForm
     template_name = "expenses/update.html"
@@ -41,7 +42,7 @@ class ExpensesUpdateView(UpdateView):
         return reverse_lazy("expenses:details", kwargs={"expense_id": self.object.id})
 
 
-class ExpensesDeleteView(DeleteView):
+class ExpensesDeleteView(LoginRequiredMixin, DeleteView):
     model = Expenses
     template_name = "expenses/delete.html"
     context_object_name = "expenses"

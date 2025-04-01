@@ -1,13 +1,14 @@
-from django.views.generic import TemplateView
-from django.http import JsonResponse
-from django.db.models import Sum
 from datetime import datetime, timedelta
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Sum
+from django.views.generic import TemplateView
 
 from app.income.models import Income
 from app.expenses.models import Expenses
 
 
-class Overview(TemplateView):
+class Overview(LoginRequiredMixin, TemplateView):
     template_name = 'overview/index.html'
 
     def get_context_data(self, **kwargs):

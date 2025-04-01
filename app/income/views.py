@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
@@ -5,7 +6,7 @@ from .forms import IncomeForm
 from .models import Income
 
 
-class IncomeListView(ListView):
+class IncomeListView(LoginRequiredMixin, ListView):
     model = Income
     template_name = "income/index.html"
     context_object_name = "incomes"
@@ -13,7 +14,7 @@ class IncomeListView(ListView):
     ordering = ["-date"]
 
 
-class IncomeCreateView(CreateView):
+class IncomeCreateView(LoginRequiredMixin, CreateView):
     model = Income
     template_name = "income/create.html"
     form_class = IncomeForm
@@ -24,14 +25,14 @@ class IncomeCreateView(CreateView):
         return super().form_valid(form)
 
 
-class IncomeDetailView(DetailView):
+class IncomeDetailView(LoginRequiredMixin, DetailView):
     model = Income
     template_name = "income/details.html"
     context_object_name = "income"
     pk_url_kwarg = "income_id"
 
 
-class IncomeUpdateView(UpdateView):
+class IncomeUpdateView(LoginRequiredMixin, UpdateView):
     model = Income
     template_name = "income/update.html"
     context_object_name = "income"
@@ -42,7 +43,7 @@ class IncomeUpdateView(UpdateView):
         return reverse_lazy("income:details", kwargs={"income_id": self.object.id})
 
 
-class IncomeDeleteView(DeleteView):
+class IncomeDeleteView(LoginRequiredMixin, DeleteView):
     model = Income
     template_name = "income/delete.html"
     context_object_name = "income"
