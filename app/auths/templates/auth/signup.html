@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+
+<div class="w-full bg-white px-4 py-10">
+    <h2 class="text-3xl font-bold text-center mb-8">Sign Up</h2>
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit"
+                class="w-full bg-primary text-white py-2 rounded-md hover:bg-primaryHover transition duration-300">
+            Sign Up
+        </button>
+    </form>
+</div>
+
+{% endblock %}
